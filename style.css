@@ -1483,6 +1483,39 @@ footer {
   letter-spacing: 0.06em;
 }
 
+/* ---- Scout Intro Banner ---------------------------------- */
+
+.scout-intro {
+  background: rgba(56, 189, 248, 0.05);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: var(--gap-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.scout-intro-question {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #38bdf8;
+}
+
+.scout-intro-body {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.scout-intro-body strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
 /* ---- Scout Empty State ----------------------------------- */
 
 .scout-empty {
