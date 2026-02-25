@@ -98,3 +98,7 @@ Community API — not affiliated with Arrowhead Game Studios.
 `https://api.helldivers2.dev`
 
 Auto-refreshes every 60 seconds.
+
+## The App 
+
+To see this app in action, go here: https://amvents.github.io/GambitHD2/
