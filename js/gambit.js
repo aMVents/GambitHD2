@@ -385,6 +385,107 @@ function getRecommendation(successPct, planetName) {
   };
 }
 
+/**
+ * Generate specific improvement suggestions for a not-recommended gambit.
+ * Each item tells players exactly what needs to change to push the gambit
+ * into at least "PROCEED WITH CAUTION" territory (≥35% success).
+ */
+function buildSuggestions(g) {
+  const suggestions = [];
+  const players     = g.players;
+  const planet      = g.libCampaign.planet;
+  let playerSuggestionAdded = false;
+
+  for (const cond of g.conditions) {
+    if (cond.pass) continue;
+
+    // 1. Liberation progress too low
+    if (cond.label.startsWith('Liberation progress')) {
+      suggestions.push(
+        `Reach at least <strong>25% liberation</strong> — currently ${g.libPct.toFixed(1)}%. ` +
+        `Sustained Helldiver presence is needed before this gambit becomes viable.`
+      );
+    }
+
+    // 2. Net rate negative — decaying faster than liberating
+    if (cond.label.startsWith('Net rate positive')) {
+      if (g.playerReqs) {
+        const extra = Math.max(0, g.playerReqs.min - players);
+        if (extra > 0) {
+          suggestions.push(
+            `Deploy <strong>${extra.toLocaleString()} more Helldivers</strong> to ${planet.name ?? 'this planet'} ` +
+            `just to break even on enemy regen — need ${g.playerReqs.min.toLocaleString()} minimum, ` +
+            `${players.toLocaleString()} currently on-planet.`
+          );
+          playerSuggestionAdded = true;
+        } else {
+          // Players are technically above min but rate is still negative (measurement lag)
+          const deficit = g.netRate != null ? Math.abs(g.netRate).toFixed(2) : '?';
+          suggestions.push(
+            `Net liberation rate is <strong>${deficit}%/hr negative</strong> — ` +
+            `more coordinated missions per hour are needed to outpace enemy regeneration.`
+          );
+        }
+      } else if (g.netRate != null) {
+        suggestions.push(
+          `Net rate is <strong>${g.netRate.toFixed(2)}%/hr</strong>. ` +
+          `A significant player surge is needed to flip this to positive.`
+        );
+      }
+    }
+
+    // 3. Cannot complete within 48h
+    if (cond.label.startsWith('Liberation completable')) {
+      if (g.netRate != null && g.netRate <= 0) {
+        suggestions.push(
+          `Liberation rate must turn <strong>positive</strong> before a completion window exists — ` +
+          `fix the player count deficit first (see above).`
+        );
+      } else if (g.timeToComplete != null && isFinite(g.timeToComplete)) {
+        suggestions.push(
+          `At the current rate, liberation takes <strong>${g.timeToComplete.toFixed(1)}h</strong>. ` +
+          `More Helldivers are needed to compress that timeline to within 48h.`
+        );
+      }
+    }
+
+    // 4. ETA exceeds defense timer
+    if (cond.label.startsWith('ETA beats defense expiry') && g.connectedDefenses.length > 0) {
+      const minDefHr = Math.min(...g.connectedDefenses.map(dc =>
+        dc.planet.event?.endTime ? hoursLeft(dc.planet.event.endTime) : Infinity
+      ));
+      if (isFinite(minDefHr)) {
+        if (g.timeToComplete != null && isFinite(g.timeToComplete)) {
+          const gap = (g.timeToComplete - minDefHr).toFixed(1);
+          suggestions.push(
+            `Liberation ETA (<strong>${g.timeToComplete.toFixed(1)}h</strong>) overshoots ` +
+            `the defense window (<strong>${minDefHr.toFixed(1)}h</strong>) by ${gap}h. ` +
+            `A major coordinated surge — or extending the defense — is required.`
+          );
+        } else {
+          suggestions.push(
+            `Defense expires in <strong>${minDefHr.toFixed(1)}h</strong>. ` +
+            `Turn the liberation rate positive first so an ETA can be calculated.`
+          );
+        }
+      }
+    }
+
+    // 5. Player count below minimum (skip if already covered by condition 2)
+    if (cond.label.startsWith('Players ≥ minimum') && g.playerReqs && !playerSuggestionAdded) {
+      const extra = Math.max(0, g.playerReqs.min - players);
+      if (extra > 0) {
+        suggestions.push(
+          `<strong>${extra.toLocaleString()} more Helldivers</strong> are needed just to halt enemy regen — ` +
+          `${players.toLocaleString()} on-planet, ${g.playerReqs.min.toLocaleString()} required minimum.`
+        );
+      }
+    }
+  }
+
+  return suggestions;
+}
+
 /** Render a single gambit opportunity card. */
 function renderGambitCard(g) {
   const planet  = g.libCampaign.planet;
@@ -482,6 +583,21 @@ function renderGambitCard(g) {
   const hasEstimates = g.netRateObj.estimated || g.playerReqs?.estimated;
   const rec = getRecommendation(g.successPct, planet.name ?? `Planet #${planet.index}`);
 
+  // Improvement suggestions — only for NOT RECOMMENDED cards
+  let suggestionsHtml = '';
+  if (g.successPct < 35) {
+    const suggestions = buildSuggestions(g);
+    if (suggestions.length) {
+      suggestionsHtml = `
+      <div class="gambit-suggestions">
+        <div class="gambit-section-label suggestions-label">WHAT NEEDS TO CHANGE</div>
+        <ul class="suggestions-list">
+          ${suggestions.map(s => `<li class="suggestion-item">${s}</li>`).join('')}
+        </ul>
+      </div>`;
+    }
+  }
+
   return `
     <div class="gambit-card ${g.risk.cls}" data-planet-index="${planet.index}">
 
@@ -548,6 +664,9 @@ function renderGambitCard(g) {
           <div class="rec-sub">${rec.sub}</div>
         </div>
       </div>
+
+      <!-- Improvement suggestions (not-recommended only) -->
+      ${suggestionsHtml}
 
     </div>`;
 }
