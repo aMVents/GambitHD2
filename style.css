@@ -1,0 +1,1212 @@
+/* ============================================================
+   GAMBIT HD2 — Strategic Operations Center
+   Theme: Military sci-fi / dark ops
+   ============================================================ */
+
+/* ---- Custom Properties ----------------------------------- */
+
+:root {
+  /* Background layers */
+  --bg-base:     #07090f;
+  --bg-surface:  #0d1117;
+  --bg-elevated: #131924;
+  --bg-card:     #0f1520;
+
+  /* Borders */
+  --border-faint:   rgba(255,255,255,0.04);
+  --border-subtle:  rgba(255,255,255,0.07);
+  --border-default: rgba(255,255,255,0.11);
+  --border-strong:  rgba(255,255,255,0.18);
+
+  /* Text */
+  --text-primary:   #dde4ee;
+  --text-secondary: #8a9bb5;
+  --text-muted:     #404e63;
+
+  /* Brand */
+  --gold:      #f4c542;
+  --gold-dim:  rgba(244,197,66,0.12);
+  --gold-glow: rgba(244,197,66,0.28);
+
+  /* Factions */
+  --terminid:        #e07b00;
+  --terminid-bg:     rgba(224,123,0,0.08);
+  --terminid-border: rgba(224,123,0,0.35);
+
+  --automaton:        #d62b1a;
+  --automaton-bg:     rgba(214,43,26,0.08);
+  --automaton-border: rgba(214,43,26,0.35);
+
+  --illuminate:        #8b5cf6;
+  --illuminate-bg:     rgba(139,92,246,0.08);
+  --illuminate-border: rgba(139,92,246,0.35);
+
+  --human:        #2a6fd4;
+  --human-bg:     rgba(42,111,212,0.08);
+  --human-border: rgba(42,111,212,0.35);
+
+  /* Status */
+  --green:  #22c55e;
+  --red:    #ef4444;
+  --orange: #f97316;
+  --yellow: #eab308;
+
+  /* Typography */
+  --font-display: 'Rajdhani', 'Arial Narrow', 'Impact', sans-serif;
+  --font-mono:    'Share Tech Mono', 'Courier New', monospace;
+
+  /* Spacing */
+  --gap-xs:  4px;
+  --gap-sm:  8px;
+  --gap-md:  16px;
+  --gap-lg:  24px;
+  --gap-xl:  36px;
+
+  /* Radius */
+  --r: 3px;
+
+  /* Transitions */
+  --t: 180ms ease;
+}
+
+/* ---- Reset & Base ---------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100vh;
+  /* Subtle scanline / grid atmosphere */
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+a { color: var(--gold); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button { cursor: pointer; font-family: inherit; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+/* ---- Utilities ------------------------------------------- */
+
+.hidden { display: none !important; }
+
+/* ---- Header ---------------------------------------------- */
+
+#header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(7, 9, 15, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-default);
+  box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+}
+
+.header-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 14px var(--gap-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--gap-lg);
+  flex-wrap: wrap;
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  flex-shrink: 0;
+}
+
+.brand-icon {
+  font-size: 30px;
+  line-height: 1;
+  color: var(--gold);
+  text-shadow: 0 0 18px var(--gold-glow);
+  user-select: none;
+}
+
+.brand-name {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  color: var(--gold);
+  text-shadow: 0 0 16px var(--gold-glow);
+  line-height: 1;
+}
+
+.brand-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* War stats */
+#war-stats {
+  display: flex;
+  gap: var(--gap-xl);
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+
+.stat-value.gold { color: var(--gold); }
+
+/* Header right */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  flex-shrink: 0;
+}
+
+#last-updated {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.live-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.75); }
+}
+
+.btn-refresh {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding: 7px 16px;
+  border-radius: var(--r);
+  transition: all var(--t);
+}
+
+.btn-refresh:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  box-shadow: 0 0 10px var(--gold-dim);
+}
+
+.btn-refresh[data-loading="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ---- Main Layout ----------------------------------------- */
+
+main {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--gap-xl) var(--gap-lg);
+}
+
+/* ---- Loading Screen -------------------------------------- */
+
+#loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: var(--gap-lg);
+}
+
+.spinner {
+  width: 52px;
+  height: 52px;
+  border: 3px solid var(--border-default);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  animation: blink-text 1.4s step-end infinite;
+}
+
+@keyframes blink-text {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+
+/* ---- Error Screen ---------------------------------------- */
+
+#error-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: var(--gap-md);
+  text-align: center;
+}
+
+.error-icon {
+  font-size: 52px;
+  color: var(--red);
+}
+
+#error-msg {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+}
+
+.btn-retry {
+  background: transparent;
+  border: 1px solid var(--red);
+  color: var(--red);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  padding: 10px 28px;
+  border-radius: var(--r);
+  transition: all var(--t);
+  margin-top: var(--gap-sm);
+}
+
+.btn-retry:hover { background: rgba(239,68,68,0.08); }
+
+/* ---- Sections -------------------------------------------- */
+
+.section { margin-bottom: var(--gap-xl); }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  margin-bottom: var(--gap-md);
+  padding-bottom: var(--gap-sm);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.section-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.section-title.liberation-title { color: var(--green); }
+.section-title.defense-title    { color: var(--red); }
+.section-title.gambit-title     { color: var(--gold); }
+
+.count-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  color: var(--text-muted);
+  padding: 2px 9px;
+  border-radius: 2px;
+  min-width: 30px;
+  text-align: center;
+}
+
+/* ---- Orders Grid ----------------------------------------- */
+
+.orders-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--gap-md);
+}
+
+.order-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--r);
+  padding: var(--gap-md);
+}
+
+.order-title {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--gold);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.order-briefing {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: var(--gap-sm);
+}
+
+.order-meta {
+  display: flex;
+  gap: var(--gap-md);
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.reward-val { color: var(--gold); }
+
+/* ---- Campaigns Two-Column Grid --------------------------- */
+
+.campaigns-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-xl);
+}
+
+/* ---- Planet Cards ---------------------------------------- */
+
+.planets-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.planet-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r);
+  padding: var(--gap-md);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--t), box-shadow var(--t);
+}
+
+/* Faction color stripe at top of card */
+.planet-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--faction-stripe, var(--border-default));
+  opacity: 0.9;
+}
+
+/* Faction-specific theming */
+.planet-card.terminid {
+  --faction-stripe: var(--terminid);
+}
+.planet-card.terminid:hover {
+  border-color: var(--terminid-border);
+  box-shadow: 0 0 18px rgba(224,123,0,0.07);
+}
+
+.planet-card.automaton {
+  --faction-stripe: var(--automaton);
+}
+.planet-card.automaton:hover {
+  border-color: var(--automaton-border);
+  box-shadow: 0 0 18px rgba(214,43,26,0.07);
+}
+
+.planet-card.illuminate {
+  --faction-stripe: var(--illuminate);
+}
+.planet-card.illuminate:hover {
+  border-color: var(--illuminate-border);
+  box-shadow: 0 0 18px rgba(139,92,246,0.07);
+}
+
+.planet-card.human {
+  --faction-stripe: var(--human);
+}
+.planet-card.human:hover {
+  border-color: var(--human-border);
+  box-shadow: 0 0 18px rgba(42,111,212,0.07);
+}
+
+/* Planet card header */
+.planet-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gap-sm);
+  margin-bottom: var(--gap-md);
+}
+
+.planet-name {
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-primary);
+  line-height: 1.15;
+}
+
+.planet-sector {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-top: 3px;
+}
+
+.planet-badges {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+/* Faction badge */
+.faction-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.faction-badge.terminid  { background: var(--terminid-bg);  border: 1px solid var(--terminid-border);  color: var(--terminid);  }
+.faction-badge.automaton { background: var(--automaton-bg); border: 1px solid var(--automaton-border); color: var(--automaton); }
+.faction-badge.illuminate{ background: var(--illuminate-bg);border: 1px solid var(--illuminate-border);color: var(--illuminate);}
+.faction-badge.human     { background: var(--human-bg);     border: 1px solid var(--human-border);     color: var(--human);     }
+
+/* Mode badge */
+.mode-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.mode-badge.liberation {
+  background: rgba(34,197,94,0.08);
+  border: 1px solid rgba(34,197,94,0.28);
+  color: var(--green);
+}
+
+.mode-badge.defense {
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.28);
+  color: var(--red);
+}
+
+/* ---- Progress Bar ---------------------------------------- */
+
+.progress-section { margin-bottom: var(--gap-md); }
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 7px;
+}
+
+.progress-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.progress-value {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.progress-bar {
+  height: 7px;
+  background: var(--bg-elevated);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border-faint);
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-fill.lib {
+  background: linear-gradient(90deg, #15803d, #22c55e);
+  box-shadow: 0 0 10px rgba(34,197,94,0.45);
+}
+
+.progress-fill.def {
+  background: linear-gradient(90deg, #991b1b, #ef4444);
+  box-shadow: 0 0 10px rgba(239,68,68,0.45);
+}
+
+/* ---- Stats Row ------------------------------------------- */
+
+.stats-row {
+  display: flex;
+  gap: var(--gap-lg);
+  flex-wrap: wrap;
+  margin-bottom: var(--gap-sm);
+}
+
+.stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.chip-icon { font-size: 13px; }
+
+.chip-val {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.chip-val.negative { color: var(--red); }
+.chip-val.positive { color: var(--green); }
+
+.chip-unit {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+/* ---- Defense Timer --------------------------------------- */
+
+.defense-timer {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  background: rgba(239,68,68,0.04);
+  border: 1px solid rgba(239,68,68,0.18);
+  border-radius: var(--r);
+  padding: 8px var(--gap-md);
+  margin-top: var(--gap-sm);
+  margin-bottom: var(--gap-sm);
+}
+
+.defense-timer.urgent {
+  background: rgba(249,115,22,0.06);
+  border-color: rgba(249,115,22,0.3);
+}
+
+.defense-timer.critical {
+  background: rgba(239,68,68,0.08);
+  border-color: rgba(239,68,68,0.45);
+  animation: pulse-border 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-border {
+  0%, 100% { border-color: rgba(239,68,68,0.45); }
+  50%       { border-color: rgba(239,68,68,0.9); }
+}
+
+.timer-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.timer-value {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: 3px;
+  text-shadow: 0 0 12px rgba(239,68,68,0.4);
+}
+
+.timer-value.urgent {
+  color: var(--orange);
+  text-shadow: 0 0 12px rgba(249,115,22,0.4);
+}
+
+.timer-value.critical {
+  color: var(--red);
+  animation: blink-critical 0.7s step-end infinite;
+}
+
+@keyframes blink-critical {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* ---- Supply Lines ---------------------------------------- */
+
+.supply-lines {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.supply-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.planet-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.planet-tag.attack {
+  border-color: rgba(244,197,66,0.25);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+/* ---- Empty State ----------------------------------------- */
+
+.empty-state {
+  padding: var(--gap-xl);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  border: 1px dashed var(--border-subtle);
+  border-radius: var(--r);
+}
+
+/* ---- Footer ---------------------------------------------- */
+
+footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: var(--gap-md) var(--gap-lg);
+  margin-top: var(--gap-xl);
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--gap-md);
+}
+
+.footer-note {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+/* ---- Gambit Section -------------------------------------- */
+
+.gambit-section {
+  margin-bottom: var(--gap-xl);
+}
+
+.gambit-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+.gambit-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: var(--gap-lg);
+}
+
+/* ---- Gambit Card ----------------------------------------- */
+
+.gambit-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r);
+  padding: var(--gap-md) var(--gap-md) var(--gap-md) calc(var(--gap-md) + 3px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Colored left stripe by risk level */
+.gambit-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+}
+
+.gambit-card.optimal::before   { background: var(--green); }
+.gambit-card.favorable::before { background: #84cc16; }
+.gambit-card.viable::before    { background: var(--yellow); }
+.gambit-card.risky::before     { background: var(--orange); }
+.gambit-card.critical::before  { background: var(--red); }
+
+/* Subtle border tint */
+.gambit-card.optimal   { border-color: rgba(34,197,94,0.2); }
+.gambit-card.favorable { border-color: rgba(132,204,22,0.2); }
+.gambit-card.viable    { border-color: rgba(234,179,8,0.2); }
+.gambit-card.risky     { border-color: rgba(249,115,22,0.2); }
+.gambit-card.critical  { border-color: rgba(239,68,68,0.2); }
+
+/* ---- Gambit Card Header ---------------------------------- */
+
+.gambit-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gap-md);
+}
+
+.gambit-card-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.gambit-sword {
+  font-size: 20px;
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 4px;
+  text-shadow: 0 0 10px var(--gold-glow);
+}
+
+.gambit-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+}
+
+.gambit-planet-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.gambit-score-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+/* Large percentage number */
+.score-number {
+  font-family: var(--font-mono);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.score-number.optimal   { color: var(--green);  text-shadow: 0 0 20px rgba(34,197,94,0.5);  }
+.score-number.favorable { color: #84cc16;        text-shadow: 0 0 20px rgba(132,204,22,0.5); }
+.score-number.viable    { color: var(--yellow);  text-shadow: 0 0 20px rgba(234,179,8,0.5);  }
+.score-number.risky     { color: var(--orange);  text-shadow: 0 0 20px rgba(249,115,22,0.5); }
+.score-number.critical  { color: var(--red);     text-shadow: 0 0 20px rgba(239,68,68,0.5);  }
+
+/* Risk level pill */
+.risk-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 3px 9px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.risk-badge.optimal   { background: rgba(34,197,94,0.1);  border: 1px solid rgba(34,197,94,0.3);  color: var(--green);  }
+.risk-badge.favorable { background: rgba(132,204,22,0.1); border: 1px solid rgba(132,204,22,0.3); color: #84cc16;       }
+.risk-badge.viable    { background: rgba(234,179,8,0.1);  border: 1px solid rgba(234,179,8,0.3);  color: var(--yellow); }
+.risk-badge.risky     { background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3); color: var(--orange); }
+.risk-badge.critical  { background: rgba(239,68,68,0.1);  border: 1px solid rgba(239,68,68,0.3);  color: var(--red);    }
+
+/* ---- Success Meter Bar ----------------------------------- */
+
+.gambit-success-bar {
+  height: 4px;
+  background: var(--bg-elevated);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: -6px;
+}
+
+.success-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.success-fill.optimal   { background: linear-gradient(90deg, #15803d, #22c55e); box-shadow: 0 0 8px rgba(34,197,94,0.5);   }
+.success-fill.favorable { background: linear-gradient(90deg, #4d7c0f, #84cc16); box-shadow: 0 0 8px rgba(132,204,22,0.5);  }
+.success-fill.viable    { background: linear-gradient(90deg, #854d0e, #eab308); box-shadow: 0 0 8px rgba(234,179,8,0.5);   }
+.success-fill.risky     { background: linear-gradient(90deg, #9a3412, #f97316); box-shadow: 0 0 8px rgba(249,115,22,0.5);  }
+.success-fill.critical  { background: linear-gradient(90deg, #991b1b, #ef4444); box-shadow: 0 0 8px rgba(239,68,68,0.5);   }
+
+/* ---- Sub-section Labels ---------------------------------- */
+
+.gambit-section-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+/* ---- Liberation Target ----------------------------------- */
+
+.gambit-target-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-sm);
+  margin-bottom: var(--gap-sm);
+}
+
+.target-planet-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.mt-sm { margin-top: var(--gap-sm); }
+
+.gambit-target-stats {
+  display: flex;
+  gap: var(--gap-md);
+  flex-wrap: wrap;
+  margin-top: 9px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.tstat             { white-space: nowrap; }
+.tstat.positive    { color: var(--green); }
+.tstat.negative    { color: var(--red);   }
+
+/* ---- Defense At Risk ------------------------------------- */
+
+.gambit-at-risk {
+  background: rgba(239,68,68,0.04);
+  border: 1px solid rgba(239,68,68,0.15);
+  border-radius: var(--r);
+  padding: 10px var(--gap-md);
+}
+
+.gambit-risk-planet {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-md);
+}
+
+.risk-planet-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Smaller timer variant for gambit cards */
+.timer-value.sm {
+  font-size: 19px;
+  letter-spacing: 2px;
+}
+
+.more-defenses {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 5px;
+}
+
+/* ---- Requirements ---------------------------------------- */
+
+.req-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 3px 0;
+}
+
+.req-icon { color: var(--gold); flex-shrink: 0; }
+
+.req-item strong  { color: var(--text-primary); }
+.req-item .positive { color: var(--green); }
+.req-item .negative { color: var(--red);   }
+
+.req-warn {
+  font-style: normal;
+  color: var(--red);
+  font-weight: 700;
+}
+
+.estimate-note {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 5px;
+}
+
+/* ---- Conditions Checklist -------------------------------- */
+
+.condition {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border-faint);
+}
+
+.condition:last-child { border-bottom: none; }
+
+.cond-icon {
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  width: 14px;
+  text-align: center;
+}
+
+.condition.pass .cond-icon { color: var(--green); }
+.condition.fail .cond-icon { color: var(--red);   }
+
+.cond-text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.condition.fail .cond-text { color: var(--text-muted); }
+
+.cond-detail {
+  display: block;
+  font-size: 11px;
+  font-style: normal;
+  margin-top: 2px;
+}
+
+.condition.pass .cond-detail { color: var(--green); }
+.condition.fail .cond-detail { color: var(--red);   }
+
+/* ---- Deployment Recommendation Banner ------------------- */
+
+.gambit-recommendation {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: var(--r);
+  /* Visually separate from the rest of the card */
+  margin-top: 2px;
+}
+
+.rec-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.rec-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rec-headline {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  line-height: 1;
+}
+
+.rec-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+/* deploy-now: bright green, glowing — go RIGHT NOW */
+.gambit-recommendation.deploy-now {
+  background: rgba(34,197,94,0.14);
+  border: 1px solid rgba(34,197,94,0.5);
+  box-shadow: 0 0 18px rgba(34,197,94,0.12), inset 0 0 12px rgba(34,197,94,0.06);
+  animation: pulse-green 2.5s ease-in-out infinite;
+}
+.gambit-recommendation.deploy-now .rec-icon    { color: var(--green); }
+.gambit-recommendation.deploy-now .rec-headline { color: var(--green); text-shadow: 0 0 12px rgba(34,197,94,0.6); }
+.gambit-recommendation.deploy-now .rec-sub      { color: #86efac; }
+
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 18px rgba(34,197,94,0.12), inset 0 0 12px rgba(34,197,94,0.06); }
+  50%       { box-shadow: 0 0 28px rgba(34,197,94,0.25), inset 0 0 18px rgba(34,197,94,0.12); }
+}
+
+/* recommended: solid green — strong go */
+.gambit-recommendation.recommended {
+  background: rgba(34,197,94,0.09);
+  border: 1px solid rgba(34,197,94,0.35);
+}
+.gambit-recommendation.recommended .rec-icon    { color: var(--green); }
+.gambit-recommendation.recommended .rec-headline { color: var(--green); }
+.gambit-recommendation.recommended .rec-sub      { color: #86efac; }
+
+/* consider: yellow-green — worth doing */
+.gambit-recommendation.consider {
+  background: rgba(163,230,53,0.08);
+  border: 1px solid rgba(163,230,53,0.3);
+}
+.gambit-recommendation.consider .rec-icon    { color: #a3e635; }
+.gambit-recommendation.consider .rec-headline { color: #a3e635; }
+.gambit-recommendation.consider .rec-sub      { color: #bef264; }
+
+/* caution: orange — risky */
+.gambit-recommendation.caution {
+  background: rgba(249,115,22,0.08);
+  border: 1px solid rgba(249,115,22,0.3);
+}
+.gambit-recommendation.caution .rec-icon    { color: var(--orange); }
+.gambit-recommendation.caution .rec-headline { color: var(--orange); }
+.gambit-recommendation.caution .rec-sub      { color: #fdba74; }
+
+/* not-recommended: muted red — don't */
+.gambit-recommendation.not-recommended {
+  background: rgba(239,68,68,0.06);
+  border: 1px solid rgba(239,68,68,0.2);
+}
+.gambit-recommendation.not-recommended .rec-icon    { color: #f87171; opacity: 0.7; }
+.gambit-recommendation.not-recommended .rec-headline { color: #f87171; opacity: 0.8; }
+.gambit-recommendation.not-recommended .rec-sub      { color: var(--text-muted); }
+
+/* ---- Gambit Empty State ---------------------------------- */
+
+.gambit-empty {
+  grid-column: 1 / -1;
+  padding: var(--gap-xl);
+}
+
+.gambit-empty span {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+/* ---- Responsive ------------------------------------------ */
+
+@media (max-width: 1000px) {
+  .campaigns-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .header-inner {
+    padding: var(--gap-sm) var(--gap-md);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-sm);
+  }
+
+  #war-stats {
+    gap: var(--gap-md);
+    flex-wrap: wrap;
+  }
+
+  main {
+    padding: var(--gap-md);
+  }
+
+  .brand-name { font-size: 22px; letter-spacing: 5px; }
+}

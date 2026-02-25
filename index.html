@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GAMBIT — HD2 Strategic Operations</title>
+
+  <!-- Google Fonts: Rajdhani (display) + Share Tech Mono (data/numbers) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ====================================================
+       HEADER — sticky operations bar
+       ==================================================== -->
+  <header id="header">
+    <div class="header-inner">
+
+      <!-- Brand -->
+      <div class="brand">
+        <div class="brand-icon">&#9876;</div>
+        <div>
+          <div class="brand-name">GAMBIT RECOMMENDATIONS</div>
+          <div class="brand-sub">HD2 STRATEGIC OPERATIONS CENTER</div>
+        </div>
+      </div>
+
+      <!-- Live war statistics (populated by JS) -->
+      <div id="war-stats"></div>
+
+      <!-- Controls -->
+      <div class="header-right">
+        <div id="last-updated">CONNECTING...</div>
+        <button id="refresh-btn" class="btn-refresh" onclick="refresh()">
+          &#8635; REFRESH
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ====================================================
+       MAIN CONTENT
+       ==================================================== -->
+  <main>
+
+    <!-- Loading state -->
+    <div id="loading">
+      <div class="spinner"></div>
+      <div class="loading-text">ESTABLISHING UPLINK TO SUPER EARTH...</div>
+    </div>
+
+    <!-- Error state -->
+    <div id="error-screen" class="hidden">
+      <div class="error-icon">&#9888;</div>
+      <div id="error-msg">UPLINK FAILED</div>
+      <button class="btn-retry" onclick="refresh()">RETRY CONNECTION</button>
+    </div>
+
+    <!-- Main content (revealed after first successful load) -->
+    <div id="content" class="hidden">
+
+      <!-- ── MAJOR ORDERS ───────────────────────────────── -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">MAJOR ORDERS</h2>
+          <span id="orders-count" class="count-badge">0</span>
+        </div>
+        <div id="orders-container" class="orders-container"></div>
+      </section>
+
+      <!-- ── GAMBIT ANALYSIS ────────────────────────────── -->
+      <section class="section gambit-section">
+        <div class="section-header">
+          <h2 class="section-title gambit-title">&#9876; GAMBIT ANALYSIS</h2>
+          <span id="gambit-count" class="count-badge">0</span>
+          <span class="gambit-hint">AUTO-DETECTED STRATEGIC OPPORTUNITIES</span>
+        </div>
+        <div id="gambit-container" class="gambit-container"></div>
+      </section>
+
+      <!-- ── LIBERATION / DEFENSE CAMPAIGNS ────────────── -->
+      <div class="campaigns-grid">
+
+        <!-- Liberation Campaigns -->
+        <section class="section">
+          <div class="section-header">
+            <h2 class="section-title liberation-title">LIBERATION CAMPAIGNS</h2>
+            <span id="liberation-count" class="count-badge">0</span>
+          </div>
+          <div id="liberation-container" class="planets-container"></div>
+        </section>
+
+        <!-- Defense Campaigns -->
+        <section class="section">
+          <div class="section-header">
+            <h2 class="section-title defense-title">DEFENSE CAMPAIGNS</h2>
+            <span id="defense-count" class="count-badge">0</span>
+          </div>
+          <div id="defense-container" class="planets-container"></div>
+        </section>
+
+      </div>
+
+    </div><!-- /#content -->
+
+  </main>
+
+  <!-- ====================================================
+       FOOTER
+       ==================================================== -->
+  <footer>
+    <span class="footer-note">
+      Data: <a href="https://api.helldivers2.dev" target="_blank" rel="noopener">api.helldivers2.dev</a>
+      &nbsp;—&nbsp; Community API, not affiliated with Arrowhead Game Studios
+    </span>
+    <span class="footer-note">Auto-refreshes every 60s</span>
+  </footer>
+
+  <!-- Scripts: api → app → gambit (order is important) -->
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/gambit.js"></script>
+
+</body>
+</html>

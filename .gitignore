@@ -1,0 +1,9 @@
+# Claude Code internal files
+.claude/
+
+# macOS
+.DS_Store
+
+# Editor directories
+.vscode/
+.idea/
