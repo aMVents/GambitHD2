@@ -306,6 +306,15 @@ function detectGambits(liberationCampaigns, defenseCampaigns, war) {
              (dp.waypoints   ?? []).includes(planet.index);
     });
 
+    // Find OTHER liberation campaigns connected via supply lines
+    // (winning this gambit opens or strengthens the route to these planets)
+    const connectedLiberation = liberationCampaigns.filter(lc => {
+      if (lc === libCampaign) return false;
+      const lp = lc.planet;
+      return (planet.waypoints ?? []).includes(lp.index) ||
+             (lp.waypoints   ?? []).includes(planet.index);
+    });
+
     // Determine net liberation rate (measured if available, else estimated)
     const measured = measuredNetRate(planet.index, planet.maxHealth);
     const netRateObj = measured != null
@@ -330,8 +339,9 @@ function detectGambits(liberationCampaigns, defenseCampaigns, war) {
 
     gambits.push({
       libCampaign,
-      connectedDefenses: connected,
-      libPct:            libPct_,
+      connectedDefenses:    connected,
+      connectedLiberation,
+      libPct:               libPct_,
       netRateObj,
       netRate,
       timeToComplete,
@@ -535,6 +545,35 @@ function renderGambitCard(g) {
       </div>`;
   }
 
+  // Strategic impact — all planets that benefit if this gambit succeeds
+  let impactHtml = '';
+  const beneficiaries = [
+    ...g.connectedDefenses.map(dc => ({
+      type:   'protect',
+      name:   dc.planet.name ?? `Planet #${dc.planet.index}`,
+      detail: 'DEFENSE PROTECTED',
+    })),
+    ...g.connectedLiberation.map(lc => ({
+      type:   'advance',
+      name:   lc.planet.name ?? `Planet #${lc.planet.index}`,
+      detail: `LIBERATION SUPPORTED — ${libPct(lc.planet).toFixed(1)}% liberated`,
+    })),
+  ];
+  if (beneficiaries.length) {
+    impactHtml = `
+      <div class="gambit-impact">
+        <div class="gambit-section-label">IF WE WIN — PLANETS THAT BENEFIT</div>
+        ${beneficiaries.map(b => `
+          <div class="impact-item impact-${b.type}">
+            <span class="impact-icon">${b.type === 'protect' ? '◈' : '▶'}</span>
+            <div class="impact-info">
+              <span class="impact-name">${b.name}</span>
+              <span class="impact-detail">${b.detail}</span>
+            </div>
+          </div>`).join('')}
+      </div>`;
+  }
+
   // Player requirements
   let reqsHtml = '';
   if (g.playerReqs) {
@@ -641,6 +680,9 @@ function renderGambitCard(g) {
 
       <!-- Defense at risk -->
       ${defenseHtml}
+
+      <!-- Strategic impact: planets that benefit if we win -->
+      ${impactHtml}
 
       <!-- Player requirements + time window -->
       <div class="gambit-requirements">

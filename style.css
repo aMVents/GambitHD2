@@ -1197,7 +1197,8 @@ footer {
   position: relative;
   padding: 0.3rem 0.25rem 0.3rem 1.3rem;
   font-size: 0.78rem;
-  color: var(--text-muted);
+  /* color: var(--text-muted); */
+  color: #00b200;
   line-height: 1.55;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
@@ -1219,6 +1220,58 @@ footer {
 .suggestion-item strong {
   color: #fca5a5;
   font-weight: 600;
+}
+
+/* ---- Strategic Impact ("If We Win") ---------------------- */
+
+.gambit-impact {
+  padding: 0.85rem 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.impact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.impact-item:last-child {
+  border-bottom: none;
+}
+
+.impact-icon {
+  font-size: 0.7rem;
+  width: 1rem;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.impact-item.impact-protect .impact-icon { color: var(--green); }
+.impact-item.impact-advance .impact-icon { color: var(--gold); }
+
+.impact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.impact-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+}
+
+.impact-item.impact-protect .impact-name { color: #86efac; }
+.impact-item.impact-advance .impact-name { color: var(--gold); }
+
+.impact-detail {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
 }
 
 /* ---- Gambit Empty State ---------------------------------- */
