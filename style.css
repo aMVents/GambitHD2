@@ -1477,6 +1477,30 @@ footer {
   letter-spacing: 0.06em;
 }
 
+/* ---- Scout Empty State ----------------------------------- */
+
+.scout-empty {
+  text-align: center;
+  padding: var(--gap-xl);
+}
+
+.scout-empty-heading {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+}
+
+.scout-empty span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
 /* ---- Gambit Empty State ---------------------------------- */
 
 .gambit-empty {

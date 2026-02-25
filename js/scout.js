@@ -177,8 +177,8 @@ function renderScout() {
 
   if (!results.length) {
     container.innerHTML = `
-      <div class="empty-state">
-        NO UNTAPPED ATTACK VECTORS DETECTED
+      <div class="empty-state scout-empty">
+        <div class="scout-empty-heading">NO UNTAPPED ATTACK VECTORS DETECTED</div>
         <span>All supply-line connected planets are already under active campaign — check the Gambit Analysis tab for current opportunities.</span>
       </div>`;
     return;
