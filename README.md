@@ -59,7 +59,7 @@ This app finds planets where active campaigns are happening (where players are c
 
 **Gambit Analysis** — The main tab. Auto-detects strategic Gambit opportunities from active campaigns and scores each one (0–100) with risk tiers: OPTIMAL, FAVORABLE, VIABLE, RISKY, and CRITICAL. For planets that are NOT RECOMMENDED, it also shows exactly what needs to change to make the Gambit viable.
 
-**Strategic Scout** — Goes one step further by scanning the full galaxy for enemy-held planets with supply-line connections to active defense campaigns that have *no active liberation yet*. These are untapped opportunities — starting a liberation on any of these planets creates a new Gambit.
+**Strategic Scout** — (UNTESTED AT THIS TIME) Goes one step further by scanning the full galaxy for enemy-held planets with supply-line connections to active defense campaigns that have *no active liberation yet*. These are untapped opportunities — starting a liberation on any of these planets creates a new Gambit.
 
 **What Is a Gambit** — A full explainer tab covering the concept with the classic Chicken game theory analogy, a real in-game example (Erata Prime → Bore Rock), the risk factors, and how to use the tool.
 
