@@ -53,6 +53,9 @@
       <button class="tab-btn scout-tab" data-tab="scout" onclick="switchTab('scout')">
         ◎ STRATEGIC SCOUT
       </button>
+      <button class="tab-btn guide-tab" data-tab="guide" onclick="switchTab('guide')">
+        ? WHAT IS A GAMBIT
+      </button>
     </nav>
 
   </header>
@@ -142,6 +145,153 @@
         </section>
 
       </div><!-- /#tab-scout -->
+
+      <!-- ══════════════════════════════════════════════════
+           TAB: WHAT IS A GAMBIT
+           ══════════════════════════════════════════════════ -->
+      <div id="tab-guide" class="tab-panel hidden">
+        <div class="guide-page">
+
+          <!-- ── Hero ─────────────────────────────────────── -->
+          <div class="guide-hero">
+            <div class="guide-hero-icon">&#9876;</div>
+            <h1 class="guide-hero-title">WHAT IS A GAMBIT?</h1>
+            <p class="guide-hero-sub">A high-risk, high-reward strategic play that can win two battles for the price of one.</p>
+          </div>
+
+          <!-- ── The Chicken Game ───────────────────────────── -->
+          <section class="guide-section">
+            <h2 class="guide-section-title">THE CHICKEN ANALOGY</h2>
+            <p class="guide-body">
+              Imagine two cars racing head-on toward each other on a narrow road.
+              The driver who <strong>swerves first</strong> is called a "chicken" — they avoided the crash, but they lost.
+              The driver who <strong>doesn't swerve</strong> wins — but only if the other one blinks first.
+              If <em>neither</em> swerves, they both crash.
+            </p>
+            <p class="guide-body">
+              This is the game of <strong>Chicken</strong> — a classic game theory scenario where the winner
+              is the one who commits most convincingly to not backing down.
+            </p>
+            <div class="guide-diagram chicken-diagram">
+              <div class="chicken-side left">
+                <div class="chicken-label">HELLDIVERS</div>
+                <div class="chicken-car">&#9658;&#9658;&#9658;</div>
+              </div>
+              <div class="chicken-center">
+                <div class="chicken-road-label">HEAD-ON</div>
+              </div>
+              <div class="chicken-side right">
+                <div class="chicken-label">ENEMY</div>
+                <div class="chicken-car flip">&#9668;&#9668;&#9668;</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── How It Maps to HD2 ─────────────────────────── -->
+          <section class="guide-section">
+            <h2 class="guide-section-title">HOW THIS APPLIES TO HELLDIVERS 2</h2>
+            <p class="guide-body">
+              When an enemy faction attacks one of our planets, the standard response is to
+              <strong>defend it directly</strong> — send Helldivers there and hold the line.
+              That's swerving. It works, but you only break even. You saved what you had.
+            </p>
+            <p class="guide-body">
+              A <strong>Gambit</strong> is the refusal to swerve. Instead of defending the planet under attack,
+              Helldivers pile onto the planet <em>launching</em> the attack and liberate it.
+              If the liberation succeeds before the defense fails, the attack is cancelled automatically —
+              because the enemy no longer holds the planet it was attacking from.
+              <strong>You win the liberation AND the defense in a single move.</strong>
+            </p>
+            <div class="guide-callout">
+              <span class="guide-callout-icon">&#9650;</span>
+              Win the source planet = cancel the attack = save the defense for free.
+            </div>
+          </section>
+
+          <!-- ── Real Example ───────────────────────────────── -->
+          <section class="guide-section">
+            <h2 class="guide-section-title">A REAL EXAMPLE</h2>
+            <p class="guide-body">
+              Suppose <strong>Erata Prime</strong> (enemy-held) is launching an attack on <strong>Bore Rock</strong>
+              (a planet we must defend). The standard play: send everyone to Bore Rock and defend it.
+            </p>
+            <p class="guide-body">
+              The <strong>Gambit play</strong>: ignore Bore Rock. Attack Erata Prime instead.
+              Now the enemy is in the Chicken position — their attack on Bore Rock is only possible
+              while they hold Erata Prime. If we liberate Erata Prime, the Bore Rock defense
+              resolves in our favour <em>instantly</em>, even if no Helldiver ever set foot there.
+            </p>
+
+            <div class="guide-diagram example-diagram">
+              <div class="ex-col">
+                <div class="ex-planet enemy-planet">
+                  <div class="ex-planet-name">ERATA PRIME</div>
+                  <div class="ex-planet-sub">ENEMY SOURCE</div>
+                </div>
+              </div>
+              <div class="ex-arrow-col">
+                <div class="ex-arrow-label">ATTACKING</div>
+                <div class="ex-arrow">&#9658;&#9658;&#9658;</div>
+                <div class="ex-arrow-label gambit-label-small">GAMBIT: attack here &#8593;</div>
+              </div>
+              <div class="ex-col">
+                <div class="ex-planet defend-planet">
+                  <div class="ex-planet-name">BORE ROCK</div>
+                  <div class="ex-planet-sub">UNDER DEFENSE</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="guide-outcome-row">
+              <div class="guide-outcome fail">
+                <div class="outcome-title">&#10007; STANDARD PLAY</div>
+                <div class="outcome-body">Defend Bore Rock. Win the defense. Erata Prime stays enemy-held. You break even.</div>
+              </div>
+              <div class="guide-outcome win">
+                <div class="outcome-title">&#9876; THE GAMBIT</div>
+                <div class="outcome-body">Liberate Erata Prime. Bore Rock defense resolves automatically. You gain a planet AND save the defense.</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── The Risk ───────────────────────────────────── -->
+          <section class="guide-section">
+            <h2 class="guide-section-title">THE RISK</h2>
+            <p class="guide-body">
+              A Gambit is not free. If the liberation of Erata Prime takes too long, Bore Rock falls
+              before you finish — and you end up with nothing. The Gambit only works if:
+            </p>
+            <ul class="guide-checklist">
+              <li><span class="check-icon pass">&#10003;</span> There are <strong>enough Helldivers</strong> on the liberation planet to outpace enemy regen</li>
+              <li><span class="check-icon pass">&#10003;</span> The liberation can be <strong>completed before the defense timer expires</strong></li>
+              <li><span class="check-icon pass">&#10003;</span> The liberation planet has <strong>meaningful progress</strong> already made (ideally 25%+)</li>
+              <li><span class="check-icon fail">&#10007;</span> If any of these fail, the defense is lost and the gambit is wasted</li>
+            </ul>
+            <div class="guide-callout caution">
+              <span class="guide-callout-icon">&#9888;</span>
+              The Gambit Analysis tab calculates all of this for you — check the success % and conditions before committing.
+            </div>
+          </section>
+
+          <!-- ── How to Use This Tool ───────────────────────── -->
+          <section class="guide-section">
+            <h2 class="guide-section-title">HOW TO USE THIS TOOL</h2>
+            <div class="guide-tool-grid">
+              <div class="guide-tool-card">
+                <div class="guide-tool-icon">&#9876;</div>
+                <div class="guide-tool-name">GAMBIT ANALYSIS</div>
+                <div class="guide-tool-desc">Shows active liberation campaigns that are connected to defense campaigns via supply lines. Each card scores the gambit's success probability and tells you exactly what conditions need to be met.</div>
+              </div>
+              <div class="guide-tool-card">
+                <div class="guide-tool-icon">◎</div>
+                <div class="guide-tool-name">STRATEGIC SCOUT</div>
+                <div class="guide-tool-desc">Shows enemy planets connected to active defenses that have <em>no active campaign yet</em>. Use this to find untapped targets — places where starting a liberation would create a new Gambit opportunity.</div>
+              </div>
+            </div>
+          </section>
+
+        </div><!-- /.guide-page -->
+      </div><!-- /#tab-guide -->
 
     </div><!-- /#content -->
 
