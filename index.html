@@ -44,6 +44,17 @@
       </div>
 
     </div>
+
+    <!-- Tab navigation -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="gambit" onclick="switchTab('gambit')">
+        &#9876; GAMBIT ANALYSIS
+      </button>
+      <button class="tab-btn scout-tab" data-tab="scout" onclick="switchTab('scout')">
+        ◎ STRATEGIC SCOUT
+      </button>
+    </nav>
+
   </header>
 
   <!-- ====================================================
@@ -67,47 +78,70 @@
     <!-- Main content (revealed after first successful load) -->
     <div id="content" class="hidden">
 
-      <!-- ── MAJOR ORDERS ───────────────────────────────── -->
-      <section class="section">
-        <div class="section-header">
-          <h2 class="section-title">MAJOR ORDERS</h2>
-          <span id="orders-count" class="count-badge">0</span>
-        </div>
-        <div id="orders-container" class="orders-container"></div>
-      </section>
+      <!-- ══════════════════════════════════════════════════
+           TAB: GAMBIT ANALYSIS
+           ══════════════════════════════════════════════════ -->
+      <div id="tab-gambit" class="tab-panel">
 
-      <!-- ── GAMBIT ANALYSIS ────────────────────────────── -->
-      <section class="section gambit-section">
-        <div class="section-header">
-          <h2 class="section-title gambit-title">&#9876; GAMBIT ANALYSIS</h2>
-          <span id="gambit-count" class="count-badge">0</span>
-          <span class="gambit-hint">AUTO-DETECTED STRATEGIC OPPORTUNITIES</span>
-        </div>
-        <div id="gambit-container" class="gambit-container"></div>
-      </section>
-
-      <!-- ── LIBERATION / DEFENSE CAMPAIGNS ────────────── -->
-      <div class="campaigns-grid">
-
-        <!-- Liberation Campaigns -->
+        <!-- ── MAJOR ORDERS ───────────────────────────────── -->
         <section class="section">
           <div class="section-header">
-            <h2 class="section-title liberation-title">LIBERATION CAMPAIGNS</h2>
-            <span id="liberation-count" class="count-badge">0</span>
+            <h2 class="section-title">MAJOR ORDERS</h2>
+            <span id="orders-count" class="count-badge">0</span>
           </div>
-          <div id="liberation-container" class="planets-container"></div>
+          <div id="orders-container" class="orders-container"></div>
         </section>
 
-        <!-- Defense Campaigns -->
+        <!-- ── GAMBIT ANALYSIS ────────────────────────────── -->
+        <section class="section gambit-section">
+          <div class="section-header">
+            <h2 class="section-title gambit-title">&#9876; GAMBIT ANALYSIS</h2>
+            <span id="gambit-count" class="count-badge">0</span>
+            <span class="gambit-hint">AUTO-DETECTED STRATEGIC OPPORTUNITIES</span>
+          </div>
+          <div id="gambit-container" class="gambit-container"></div>
+        </section>
+
+        <!-- ── LIBERATION / DEFENSE CAMPAIGNS ────────────── -->
+        <div class="campaigns-grid">
+
+          <!-- Liberation Campaigns -->
+          <section class="section">
+            <div class="section-header">
+              <h2 class="section-title liberation-title">LIBERATION CAMPAIGNS</h2>
+              <span id="liberation-count" class="count-badge">0</span>
+            </div>
+            <div id="liberation-container" class="planets-container"></div>
+          </section>
+
+          <!-- Defense Campaigns -->
+          <section class="section">
+            <div class="section-header">
+              <h2 class="section-title defense-title">DEFENSE CAMPAIGNS</h2>
+              <span id="defense-count" class="count-badge">0</span>
+            </div>
+            <div id="defense-container" class="planets-container"></div>
+          </section>
+
+        </div>
+
+      </div><!-- /#tab-gambit -->
+
+      <!-- ══════════════════════════════════════════════════
+           TAB: STRATEGIC SCOUT
+           ══════════════════════════════════════════════════ -->
+      <div id="tab-scout" class="tab-panel hidden">
+
         <section class="section">
           <div class="section-header">
-            <h2 class="section-title defense-title">DEFENSE CAMPAIGNS</h2>
-            <span id="defense-count" class="count-badge">0</span>
+            <h2 class="section-title scout-title">◎ STRATEGIC SCOUT</h2>
+            <span id="scout-count" class="count-badge">0</span>
+            <span class="gambit-hint">UNTAPPED ATTACK VECTORS LINKED TO ACTIVE DEFENSES</span>
           </div>
-          <div id="defense-container" class="planets-container"></div>
+          <div id="scout-container" class="scout-container"></div>
         </section>
 
-      </div>
+      </div><!-- /#tab-scout -->
 
     </div><!-- /#content -->
 
@@ -124,10 +158,11 @@
     <span class="footer-note">Auto-refreshes every 60s</span>
   </footer>
 
-  <!-- Scripts: api → app → gambit (order is important) -->
+  <!-- Scripts: api → app → gambit → scout (order is important) -->
   <script src="js/api.js"></script>
   <script src="js/app.js"></script>
   <script src="js/gambit.js"></script>
+  <script src="js/scout.js"></script>
 
 </body>
 </html>

@@ -5,9 +5,10 @@
 // ---- State -------------------------------------------------
 
 const state = {
-  planetMap: {},      // index (number) → planet name (string)
+  planetMap: {},            // index (number) → planet name (string)
   liberationCampaigns: [],
   defenseCampaigns: [],
+  allPlanets: [],           // full planet list — used by Strategic Scout
   timerInterval: null,
   lastUpdated: null,
 };
@@ -354,8 +355,9 @@ function updateLastUpdated() {
 function render(data) {
   const { war, campaigns, assignments, planets } = data;
 
-  // Build planet name lookup map
+  // Build planet name lookup map and store full list for Scout tab
   state.planetMap = {};
+  state.allPlanets = planets ?? [];
   (planets ?? []).forEach(p => {
     if (p.index != null) state.planetMap[p.index] = p.name ?? `#${p.index}`;
   });
@@ -379,6 +381,11 @@ function render(data) {
   if (typeof detectGambits === 'function' && typeof renderGambits === 'function') {
     const gambits = detectGambits(state.liberationCampaigns, state.defenseCampaigns, war);
     renderGambits(gambits);
+  }
+
+  // Phase 3: Strategic Scout tab
+  if (typeof renderScout === 'function') {
+    renderScout();
   }
 
   // Track timing
@@ -432,6 +439,21 @@ async function refresh() {
 
 // Expose refresh globally so inline onclick handlers work
 window.refresh = refresh;
+
+// ---- Tab Switching -----------------------------------------
+
+/**
+ * Switch between the Gambit Analysis and Strategic Scout tabs.
+ * Called by the tab buttons' onclick handlers in index.html.
+ */
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${tabName}`)?.classList.remove('hidden');
+  document.querySelector(`.tab-btn[data-tab="${tabName}"]`)?.classList.add('active');
+}
+
+window.switchTab = switchTab;
 
 // Initial load
 refresh();

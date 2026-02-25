@@ -1274,6 +1274,209 @@ footer {
   letter-spacing: 0.04em;
 }
 
+/* ---- Tab Navigation -------------------------------------- */
+
+.tab-nav {
+  display: flex;
+  border-top: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.tab-btn {
+  padding: 0.55rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--border);
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.tab-btn.active {
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.08);
+  border-bottom-color: var(--gold);
+}
+
+.tab-btn.scout-tab.active {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.08);
+  border-bottom-color: #38bdf8;
+}
+
+/* ---- Tab Panels ------------------------------------------ */
+
+.tab-panel {
+  display: block;
+}
+
+.tab-panel.hidden {
+  display: none;
+}
+
+/* ---- Strategic Scout ------------------------------------- */
+
+.scout-title {
+  color: #38bdf8;
+}
+
+.scout-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.scout-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid #38bdf8;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.scout-card.urgent {
+  border-left-color: var(--orange);
+}
+
+.scout-card.critical {
+  border-left-color: var(--red);
+  animation: pulse-scout-red 2s ease-in-out infinite;
+}
+
+@keyframes pulse-scout-red {
+  0%, 100% { border-left-color: rgba(239, 68, 68, 0.6); }
+  50%       { border-left-color: rgba(239, 68, 68, 1);   }
+}
+
+.scout-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(56, 189, 248, 0.04);
+  border-bottom: 1px solid var(--border);
+}
+
+.scout-label {
+  font-size: 0.65rem;
+  color: #38bdf8;
+  letter-spacing: 0.12em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.scout-defense-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.scout-defense-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.scout-sector {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.scout-timer-block {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.scout-timer-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.2rem;
+}
+
+.scout-def-pct {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-top: 0.25rem;
+}
+
+.scout-targets-section {
+  padding: 0.85rem 1rem;
+}
+
+.scout-vectors-label {
+  margin-bottom: 0.6rem;
+  line-height: 1.4;
+}
+
+.scout-target {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.scout-target:last-child {
+  border-bottom: none;
+}
+
+.scout-target-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.25rem;
+}
+
+.scout-target-name {
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+
+.scout-target-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.scout-meta-item {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.scout-meta-item strong {
+  color: var(--text-primary);
+}
+
+.scout-cta {
+  font-size: 0.68rem;
+  color: #38bdf8;
+  opacity: 0.8;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
 /* ---- Gambit Empty State ---------------------------------- */
 
 .gambit-empty {
