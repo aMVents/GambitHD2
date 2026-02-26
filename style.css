@@ -154,7 +154,7 @@ button { cursor: pointer; font-family: inherit; }
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 3px;
-  color: var(--text-muted);
+  color: #94a3b8;
   margin-top: 3px;
 }
 
@@ -176,7 +176,7 @@ button { cursor: pointer; font-family: inherit; }
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 2px;
-  color: var(--text-muted);
+  color: #94a3b8;
   text-transform: uppercase;
 }
 
@@ -201,7 +201,7 @@ button { cursor: pointer; font-family: inherit; }
 #last-updated {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--text-muted);
+  color: #94a3b8;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -362,7 +362,7 @@ main {
   font-size: 11px;
   background: var(--bg-elevated);
   border: 1px solid var(--border-default);
-  color: var(--text-muted);
+  color: #94a3b8;
   padding: 2px 9px;
   border-radius: 2px;
   min-width: 30px;
@@ -501,7 +501,7 @@ main {
 .planet-sector {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--text-muted);
+  color: #94a3b8;
   letter-spacing: 1px;
   margin-top: 3px;
 }
@@ -567,7 +567,7 @@ main {
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 2px;
-  color: var(--text-muted);
+  color: #94a3b8;
   text-transform: uppercase;
 }
 
@@ -619,7 +619,7 @@ main {
   gap: 5px;
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--text-muted);
+  color: #94a3b8;
 }
 
 .chip-icon { font-size: 13px; }
@@ -636,7 +636,7 @@ main {
 .chip-unit {
   font-size: 10px;
   letter-spacing: 1px;
-  color: var(--text-muted);
+  color: #94a3b8;
 }
 
 /* ---- Defense Timer --------------------------------------- */
@@ -715,7 +715,7 @@ main {
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 2px;
-  color: var(--text-muted);
+  color: #94a3b8;
   flex-shrink: 0;
 }
 
@@ -743,7 +743,7 @@ main {
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 2px;
-  color: var(--text-muted);
+  color: #94a3b8;
   border: 1px dashed var(--border-subtle);
   border-radius: var(--r);
 }
@@ -781,7 +781,7 @@ footer {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 1px;
-  color: var(--text-muted);
+  color: #94a3b8;
   margin-left: auto;
 }
 
@@ -931,9 +931,9 @@ footer {
 
 .gambit-section-label {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 2px;
-  color: var(--text-muted);
+  color: #94a3b8;
   text-transform: uppercase;
   margin-bottom: 8px;
 }
@@ -1062,12 +1062,12 @@ footer {
 
 .cond-text {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.4;
 }
 
-.condition.fail .cond-text { color: var(--text-muted); }
+.condition.fail .cond-text { color: #94a3b8; }
 
 .cond-detail {
   display: block;
@@ -1168,7 +1168,7 @@ footer {
 }
 .gambit-recommendation.not-recommended .rec-icon    { color: #f87171; opacity: 0.7; }
 .gambit-recommendation.not-recommended .rec-headline { color: #f87171; opacity: 0.8; }
-.gambit-recommendation.not-recommended .rec-sub      { color: var(--text-muted); }
+.gambit-recommendation.not-recommended .rec-sub      { color: #94a3b8; }
 
 /* ---- Improvement Suggestions (not-recommended cards) ----- */
 
@@ -1269,7 +1269,7 @@ footer {
 
 .impact-detail {
   font-size: 0.68rem;
-  color: var(--text-muted);
+  color: #94a3b8;
   font-family: var(--font-mono);
   letter-spacing: 0.04em;
 }
@@ -1506,7 +1506,7 @@ footer {
 
 .scout-intro-body {
   font-size: 0.83rem;
-  color: var(--text-muted);
+  color: #94a3b8;
   line-height: 1.7;
   margin: 0;
 }
@@ -1529,14 +1529,14 @@ footer {
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: var(--text-primary);
+  color: #dfe3e7;
   margin-bottom: 0.6rem;
 }
 
 .scout-empty span {
   display: block;
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: #94a3b8;
   line-height: 1.6;
 }
 
@@ -1651,7 +1651,7 @@ footer {
 
 .guide-body {
   font-size: 0.88rem;
-  color: var(--text-muted);
+  color: #94a3b8;
   line-height: 1.75;
   margin: 0;
 }
@@ -1717,7 +1717,7 @@ footer {
 .chicken-label {
   font-size: 0.65rem;
   letter-spacing: 0.1em;
-  color: var(--text-muted);
+  color: #94a3b8;
 }
 
 .chicken-car {
@@ -1736,7 +1736,7 @@ footer {
 
 .chicken-road-label {
   font-size: 0.65rem;
-  color: var(--text-muted);
+  color: #94a3b8;
   letter-spacing: 0.1em;
 }
 
@@ -1779,7 +1779,7 @@ footer {
 
 .ex-planet-sub {
   font-size: 0.62rem;
-  color: var(--text-muted);
+  color: #94a3b8;
   letter-spacing: 0.08em;
   margin-top: 0.2rem;
 }
@@ -1848,7 +1848,7 @@ footer {
 
 .outcome-body {
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: #94a3b8;
   line-height: 1.55;
 }
 
@@ -1868,7 +1868,7 @@ footer {
   align-items: flex-start;
   gap: 0.6rem;
   font-size: 0.83rem;
-  color: var(--text-muted);
+  color: #94a3b8;
   line-height: 1.5;
 }
 
@@ -1918,7 +1918,7 @@ footer {
 
 .guide-tool-desc {
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: #94a3b8;
   line-height: 1.6;
 }
 
