@@ -295,10 +295,6 @@ function detectGambits(liberationCampaigns, defenseCampaigns, war) {
     const planet  = libCampaign.planet;
     const libPct_ = libPct(planet);
 
-    // Include any planet that's actively being pushed — even 0.0% counts
-    // if it's on a supply line connected to a defense campaign (classic gambit).
-    if (libPct_ < 0 && connected.length === 0) continue;
-
     // Find defense campaigns connected via supply lines
     const connected = defenseCampaigns.filter(dc => {
       const dp = dc.planet;
@@ -353,7 +349,14 @@ function detectGambits(liberationCampaigns, defenseCampaigns, war) {
     });
   }
 
-  return gambits.sort((a, b) => b.successPct - a.successPct);
+  return gambits.sort((a, b) => {
+    // Real gambits (connected to a defense) always surface above plain liberation campaigns
+    const aHasDef = a.connectedDefenses.length > 0 ? 1 : 0;
+    const bHasDef = b.connectedDefenses.length > 0 ? 1 : 0;
+    if (bHasDef !== aHasDef) return bHasDef - aHasDef;
+    // Within each group, higher success score first
+    return b.successPct - a.successPct;
+  });
 }
 
 // ---- Rendering ---------------------------------------------
@@ -664,7 +667,7 @@ function renderGambitCard(g) {
       <div class="gambit-target">
         <div class="gambit-section-label">LIBERATION TARGET</div>
         <div class="gambit-target-header">
-          <span class="target-planet-name">${planet.name}</span>
+          <span class="target-planet-name">${planet.name ?? `PLANET #${planet.index}`}</span>
           <span class="faction-badge ${fCls}">${fLabel}</span>
         </div>
         <div class="progress-bar mt-sm">
@@ -723,8 +726,11 @@ function renderGambits(gambits) {
   const countEl   = document.getElementById('gambit-count');
   if (!container) return;
 
-  // Show all detected gambits (score already visible on card); cap at 6
-  const viable = gambits.slice(0, 6);
+  // Always show all real gambits (connected to a defense), then fill remaining slots
+  // up to a cap of 6 with unconnected liberation campaigns
+  const withDef    = gambits.filter(g => g.connectedDefenses.length > 0);
+  const withoutDef = gambits.filter(g => g.connectedDefenses.length === 0);
+  const viable     = [...withDef, ...withoutDef.slice(0, Math.max(0, 6 - withDef.length))];
 
   if (countEl) countEl.textContent = viable.length;
 

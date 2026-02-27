@@ -71,12 +71,12 @@ function libPct(planet) {
 }
 
 /**
- * Defense success % for a planet event.
- * defPct = (1 - event.health / event.maxHealth) * 100
+ * Defense integrity % for a planet event — how much health remains.
+ * 100% = full health (just started), 0% = defense has fallen.
  */
 function defPct(event) {
   if (!event || !event.maxHealth) return 0;
-  return Math.max(0, Math.min(100, (1 - event.health / event.maxHealth) * 100));
+  return Math.max(0, Math.min(100, (event.health / event.maxHealth) * 100));
 }
 
 /**
@@ -128,7 +128,7 @@ function renderOrders(assignments) {
   const countEl = document.getElementById('orders-count');
   if (!container) return;
 
-  countEl.textContent = assignments.length;
+  if (countEl) countEl.textContent = assignments.length;
 
   if (!assignments.length) {
     container.innerHTML = '<div class="empty-state">NO ACTIVE MAJOR ORDERS</div>';
@@ -323,6 +323,7 @@ function renderDefense(campaigns) {
 function tickTimers() {
   document.querySelectorAll('[data-end]').forEach(el => {
     const endTime = el.getAttribute('data-end');
+    if (!endTime) return; // skip elements with no end time set
     el.textContent = fmtCountdown(endTime);
 
     const hrs = hoursLeft(endTime);
