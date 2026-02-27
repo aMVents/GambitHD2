@@ -301,6 +301,79 @@
             </div>
           </section>
 
+          <!-- ── Reading the Cards ──────────────────────────── -->
+          <section class="guide-section">
+            <h2 class="guide-section-title">READING THE CARDS</h2>
+            <p class="guide-body">
+              Every card in the Gambit Analysis tab shows a different level of strategic certainty.
+              Here's what each label and indicator means.
+            </p>
+
+            <!-- Card type labels -->
+            <div class="guide-legend">
+
+              <div class="legend-item">
+                <div class="legend-badge confirmed-legend">⚔ CONFIRMED ATTACK SOURCE</div>
+                <div class="legend-desc">
+                  The API has confirmed this planet is <strong>actively launching an attack</strong> on the connected
+                  defense planet. These cards appear first and have a gold border. Liberating a confirmed
+                  attack source is the most reliable way to execute a Gambit — success directly cancels the invasion.
+                </div>
+              </div>
+
+              <div class="legend-item">
+                <div class="legend-badge supply-legend">GAMBIT OPPORTUNITY</div>
+                <div class="legend-desc">
+                  This planet shares a <strong>supply line connection</strong> with an active defense campaign but
+                  is not confirmed as the direct attacker. Liberating it may or may not resolve the defense —
+                  treat these as <em>potential</em> gambits worth watching rather than guaranteed wins.
+                </div>
+              </div>
+
+              <div class="legend-item">
+                <div class="legend-badge attacking-legend">⚔ DIRECTLY ATTACKING</div>
+                <div class="legend-desc">
+                  Shown on the defense section of a confirmed card. The arrow on the galactic map points
+                  from this liberation planet to the planet listed here — liberating it cuts off that arrow.
+                </div>
+              </div>
+
+              <div class="legend-item">
+                <div class="legend-badge supply-risk-legend">⚠ SUPPLY LINE AT RISK</div>
+                <div class="legend-desc">
+                  The liberation planet and defense planet are adjacent on the supply line graph but
+                  no direct attack vector has been confirmed. The defense may still be influenced by
+                  liberating this planet, but the connection is strategic rather than direct.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Resistance stat -->
+            <h3 class="guide-sub-title">ENEMY RESISTANCE</h3>
+            <p class="guide-body">
+              Every liberation planet displays its <strong>enemy resistance</strong> in orange (e.g. <em>TERMINIDS resistance: 1.00%/hr</em>).
+              This is the rate at which the enemy regenerates health on that planet — the floor your Helldivers must
+              beat just to make forward progress. A planet with 4%/hr resistance needs far more sustained player
+              presence than one at 1%/hr.
+            </p>
+
+            <!-- Risk tiers -->
+            <h3 class="guide-sub-title">SUCCESS SCORE &amp; RISK TIERS</h3>
+            <p class="guide-body">
+              Each gambit card is scored 0–100 based on liberation progress, net liberation rate,
+              time available vs. defense timer, and how many conditions are passing.
+            </p>
+            <div class="guide-tiers">
+              <div class="tier-row"><span class="tier-badge optimal">OPTIMAL</span><span class="tier-desc">85–100 — Conditions are ideal. Deploy immediately.</span></div>
+              <div class="tier-row"><span class="tier-badge favorable">FAVORABLE</span><span class="tier-desc">70–84 — Good odds. Your presence will tip the balance.</span></div>
+              <div class="tier-row"><span class="tier-badge viable">VIABLE</span><span class="tier-desc">55–69 — Possible but needs sustained commitment.</span></div>
+              <div class="tier-row"><span class="tier-badge risky">RISKY</span><span class="tier-desc">35–54 — Proceed only with a significant player surge.</span></div>
+              <div class="tier-row"><span class="tier-badge critical">CRITICAL</span><span class="tier-desc">0–34 — Conditions unfavourable. Check "What Needs to Change" for specifics.</span></div>
+            </div>
+
+          </section>
+
         </div><!-- /.guide-page -->
       </div><!-- /#tab-guide -->
 

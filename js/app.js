@@ -231,9 +231,9 @@ function renderPlanetCard(campaign, mode) {
       </div>
       ${mode === 'liberation' ? `
         <div class="stat-chip">
-          <span class="chip-icon">&#8595;</span>
-          <span class="chip-val negative">−${decay.toFixed(2)}%/hr</span>
-          <span class="chip-unit">DECAY</span>
+          <span class="chip-icon">&#128737;</span>
+          <span class="chip-val negative">${decay.toFixed(2)}%/hr</span>
+          <span class="chip-unit">RESISTANCE</span>
         </div>` : ''}
     </div>`;
 

@@ -295,12 +295,19 @@ function detectGambits(liberationCampaigns, defenseCampaigns, war) {
     const planet  = libCampaign.planet;
     const libPct_ = libPct(planet);
 
-    // Find defense campaigns connected via supply lines
+    // planet.attacking[] = planets this planet is currently pushing an attack on
+    const attackingIndices = planet.attacking ?? [];
+
+    // Find defense campaigns: confirmed via planet.attacking[], or via supply-line waypoints
     const connected = defenseCampaigns.filter(dc => {
       const dp = dc.planet;
-      return (planet.waypoints ?? []).includes(dp.index) ||
+      return attackingIndices.includes(dp.index) ||
+             (planet.waypoints ?? []).includes(dp.index) ||
              (dp.waypoints   ?? []).includes(planet.index);
     });
+
+    // True if this planet is the confirmed, direct source of an attack on a defended planet
+    const isConfirmedAttacker = connected.some(dc => attackingIndices.includes(dc.planet.index));
 
     // Find OTHER liberation campaigns connected via supply lines
     // (winning this gambit opens or strengthens the route to these planets)
@@ -337,6 +344,7 @@ function detectGambits(liberationCampaigns, defenseCampaigns, war) {
       libCampaign,
       connectedDefenses:    connected,
       connectedLiberation,
+      isConfirmedAttacker,
       libPct:               libPct_,
       netRateObj,
       netRate,
@@ -350,11 +358,15 @@ function detectGambits(liberationCampaigns, defenseCampaigns, war) {
   }
 
   return gambits.sort((a, b) => {
-    // Real gambits (connected to a defense) always surface above plain liberation campaigns
+    // 1. Confirmed attackers (planet.attacking[] → defense planet) always first
+    if (a.isConfirmedAttacker !== b.isConfirmedAttacker) {
+      return b.isConfirmedAttacker ? 1 : -1;
+    }
+    // 2. Then other gambits with supply-line-connected defenses
     const aHasDef = a.connectedDefenses.length > 0 ? 1 : 0;
     const bHasDef = b.connectedDefenses.length > 0 ? 1 : 0;
     if (bHasDef !== aHasDef) return bHasDef - aHasDef;
-    // Within each group, higher success score first
+    // 3. Within each group, higher success score first
     return b.successPct - a.successPct;
   });
 }
@@ -537,9 +549,10 @@ function renderGambitCard(g) {
     const urgCls    = hrs < 1 ? 'critical' : hrs < 6 ? 'urgent' : '';
     const extra     = g.connectedDefenses.length - 1;
 
+    const atRiskLabel = g.isConfirmedAttacker ? '⚔ DIRECTLY ATTACKING' : '⚠ SUPPLY LINE AT RISK';
     defenseHtml = `
       <div class="gambit-at-risk">
-        <div class="gambit-section-label">⚠ SUPPLY LINE AT RISK</div>
+        <div class="gambit-section-label">${atRiskLabel}</div>
         <div class="gambit-risk-planet">
           <div class="risk-planet-name">${dc.planet.name ?? `PLANET #${dc.planet.index}`}</div>
           <span class="timer-value ${urgCls} sm" data-end="${event?.endTime ?? ''}">${remaining}</span>
@@ -640,15 +653,19 @@ function renderGambitCard(g) {
     }
   }
 
+  const confirmedCls = g.isConfirmedAttacker ? ' confirmed-attacker' : '';
+
   return `
-    <div class="gambit-card ${g.risk.cls}" data-planet-index="${planet.index}">
+    <div class="gambit-card ${g.risk.cls}${confirmedCls}" data-planet-index="${planet.index}">
 
       <!-- Header: Title + Score -->
       <div class="gambit-card-header">
         <div class="gambit-card-title">
           <span class="gambit-sword">&#9876;</span>
           <div>
-            <div class="gambit-label">GAMBIT OPPORTUNITY</div>
+            <div class="gambit-label${g.isConfirmedAttacker ? ' confirmed-label' : ''}">
+              ${g.isConfirmedAttacker ? '⚔ CONFIRMED ATTACK SOURCE' : 'GAMBIT OPPORTUNITY'}
+            </div>
             <div class="gambit-planet-title">${planet.name ?? `PLANET #${planet.index}`}</div>
           </div>
         </div>
@@ -678,6 +695,7 @@ function renderGambitCard(g) {
           <span class="tstat ${rateClass}">${rateDisplay}</span>
           <span class="tstat">${etaDisplay} to completion</span>
           <span class="tstat">&#128101;&nbsp;${fmt(g.players)}</span>
+          <span class="tstat resistance">${fLabel} resistance: ${decayRate(planet).toFixed(2)}%/hr</span>
         </div>
       </div>
 
@@ -726,11 +744,12 @@ function renderGambits(gambits) {
   const countEl   = document.getElementById('gambit-count');
   if (!container) return;
 
-  // Always show all real gambits (connected to a defense), then fill remaining slots
-  // up to a cap of 6 with unconnected liberation campaigns
-  const withDef    = gambits.filter(g => g.connectedDefenses.length > 0);
-  const withoutDef = gambits.filter(g => g.connectedDefenses.length === 0);
-  const viable     = [...withDef, ...withoutDef.slice(0, Math.max(0, 6 - withDef.length))];
+  // Priority: confirmed attackers → supply-line neighbors with defenses → others (capped at 6 total)
+  const confirmed  = gambits.filter(g => g.isConfirmedAttacker);
+  const withDef    = gambits.filter(g => !g.isConfirmedAttacker && g.connectedDefenses.length > 0);
+  const others     = gambits.filter(g => g.connectedDefenses.length === 0);
+  const cap        = Math.max(0, 6 - confirmed.length - withDef.length);
+  const viable     = [...confirmed, ...withDef, ...others.slice(0, cap)];
 
   if (countEl) countEl.textContent = viable.length;
 

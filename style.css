@@ -969,6 +969,19 @@ footer {
 .tstat             { white-space: nowrap; }
 .tstat.positive    { color: var(--green); }
 .tstat.negative    { color: var(--red);   }
+.tstat.resistance  { color: #f97316; }   /* orange — enemy stat */
+
+/* ---- Confirmed Attacker Cards ---------------------------- */
+
+.gambit-card.confirmed-attacker {
+  border-top: 3px solid var(--gold);
+  box-shadow: 0 0 18px rgba(244, 197, 66, 0.15);
+}
+
+.gambit-label.confirmed-label {
+  color: var(--gold);
+  font-size: 10px;
+}
 
 /* ---- Defense At Risk ------------------------------------- */
 
@@ -1928,8 +1941,103 @@ footer {
   font-style: normal;
 }
 
+/* ---- Card Legend ----------------------------------------- */
+
+.guide-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.legend-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.confirmed-legend   { background: rgba(244,197,66,0.15); color: var(--gold);    border: 1px solid var(--gold); }
+.supply-legend      { background: rgba(148,163,184,0.1); color: #94a3b8;        border: 1px solid var(--border); }
+.attacking-legend   { background: rgba(244,197,66,0.1);  color: var(--gold);    border: 1px solid rgba(244,197,66,0.4); }
+.supply-risk-legend { background: rgba(234,179,8,0.1);   color: #eab308;        border: 1px solid rgba(234,179,8,0.4); }
+
+.legend-desc {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+.legend-desc strong { color: var(--text-primary); }
+.legend-desc em     { color: #f97316; font-style: normal; }
+
+/* ---- Guide sub-headings ---------------------------------- */
+
+.guide-sub-title {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin: 1.25rem 0 0.5rem;
+}
+
+/* ---- Risk tier table ------------------------------------- */
+
+.guide-tiers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.tier-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.4rem 0;
+}
+
+.tier-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  min-width: 90px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.tier-badge.optimal   { background: rgba(52,211,153,0.15); color: #34d399; border: 1px solid rgba(52,211,153,0.4); }
+.tier-badge.favorable { background: rgba(96,165,250,0.15); color: #60a5fa; border: 1px solid rgba(96,165,250,0.4); }
+.tier-badge.viable    { background: rgba(234,179,8,0.15);  color: #eab308; border: 1px solid rgba(234,179,8,0.4);  }
+.tier-badge.risky     { background: rgba(249,115,22,0.15); color: #f97316; border: 1px solid rgba(249,115,22,0.4); }
+.tier-badge.critical  { background: rgba(239,68,68,0.15);  color: #ef4444; border: 1px solid rgba(239,68,68,0.4);  }
+
+.tier-desc {
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
 @media (max-width: 600px) {
   .guide-outcome-row,
   .guide-tool-grid { grid-template-columns: 1fr; }
   .example-diagram  { flex-direction: column; }
+  .legend-item      { flex-direction: column; }
 }
